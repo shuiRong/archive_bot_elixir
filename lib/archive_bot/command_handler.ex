@@ -1,4 +1,5 @@
 defmodule ArchiveBot.CommandHandler do
+  alias ArchiveBot.MarkdownToHtml
   require Logger
 
   def sleep(token, chat_id, message_id, seconds) do
@@ -18,7 +19,7 @@ defmodule ArchiveBot.CommandHandler do
   end
 
   def archiveURL(token, text) do
-    urls = text |> parseURL(token)
+    urls = text |> parseURL(token) |> MarkdownToHtml.convert()
     IO.inspect(urls)
   end
 
@@ -30,7 +31,14 @@ defmodule ArchiveBot.CommandHandler do
     |> Enum.reduce([], fn url, acc ->
       case PageFetch.fetch(url) do
         {:ok, body} ->
-          [{url, body} | acc]
+          case body do
+            %{"data" => %{"content" => content}} ->
+              [{url, content} | acc]
+
+            _ ->
+              IO.puts("Unexpected response structure")
+              acc
+          end
 
         {:error, reason} ->
           IO.puts("Error fetching #{url}: #{reason}")

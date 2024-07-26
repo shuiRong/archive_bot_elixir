@@ -1,4 +1,4 @@
-defmodule ArchiveBot.ArchiveBot do
+defmodule ArchiveBot.Main do
   use Telegram.Bot
   alias ArchiveBot.CommandHandler
 

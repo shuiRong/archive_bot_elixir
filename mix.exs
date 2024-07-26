@@ -26,7 +26,8 @@ defmodule ArchiveBot.MixProject do
       {:hackney, "~> 1.18"},
       {:httpoison, "~> 1.8"},
       {:exsync, "~> 0.4", only: :dev},
-      {:dotenv, "~> 3.0.0"}
+      {:dotenv, "~> 3.0.0"},
+      {:earmark, "~> 1.4"}
     ]
   end
 end

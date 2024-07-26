@@ -10,8 +10,7 @@ defmodule ArchiveBot.Application do
     end
 
     children = [
-      {Telegram.Poller,
-       bots: [{ArchiveBot.ArchiveBot, token: bot_token, max_bot_concurrency: 1_000}]}
+      {Telegram.Poller, bots: [{ArchiveBot.Main, token: bot_token, max_bot_concurrency: 1_000}]}
       # 在这里添加你的其他子进程
     ]
 
